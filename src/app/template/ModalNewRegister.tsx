@@ -13,7 +13,7 @@ export default function ModalNewRegister(props: ModalNewRegisterProps) {
 
   const [register, setRegister] = useState<any>(null);
 
-  async function clickSaveRegister(e: any) {
+  async function clickSaveRegister(e: React.MouseEvent<HTMLElement>) {
     e.preventDefault();
 
     const type = document.forms[1][0] as HTMLInputElement;

@@ -21,4 +21,8 @@ export default class RepositorioTarefa {
   async getAllRegisters() {
     return await this.db.register.findMany();
   }
+
+  async getSingleRegister(id: string) {
+    return await this.db.register.findUnique({ where: { id } })
+  }
 }
