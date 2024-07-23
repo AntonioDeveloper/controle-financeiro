@@ -1,6 +1,5 @@
 "use client"
 
-import { useRouter } from "next/navigation";
 import Pagina from "../template/Pagina";
 import RegisterPanel from "../template/RegisterPanel";
 import { useSearchParams } from 'next/navigation'

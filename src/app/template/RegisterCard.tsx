@@ -2,7 +2,10 @@
 
 import updateRegister from "@/backend/casos-uso/update-register";
 import { IconCircleFilled, IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import useToggle from "../hooks/useToggle";
+import CloseEditionBtn from "./CloseEditionBtn";
+import ConfirmationModal from "./ConfirmationModal";
 
 interface RegisterCardProps {
   id: any,
@@ -11,16 +14,19 @@ interface RegisterCardProps {
   description: any,
   value: any,
   status: any,
+  setOpenEdition: () => void,
   openEdition: boolean
 }
 
 export default function RegisterCard(props: RegisterCardProps) {
 
-  // console.log("PROPS", props);
-
   const [newDescription, setNewDescription] = useState("");
   const [newType, setNewType] = useState("");
   const [newValue, setNewValue] = useState(0);
+
+  const [openConfirmationModal, setOpenConfirmationModal] = useToggle(false);
+
+  console.log("openEdition", props.openEdition, "openConfirmationModal", openConfirmationModal);
 
   function handleDescriptionChange(e: any) {
     setNewDescription(e.target?.value);
@@ -33,10 +39,6 @@ export default function RegisterCard(props: RegisterCardProps) {
   function handleValueChange(e: any) {
     setNewValue(e.target?.value);
   }
-
-  // useEffect(() => {
-  //   console.log("Description", newDescription, "Type", newType, "Value", newValue);
-  // }, [newDescription, newType, newValue]);
 
   let formDataObj = {
     id: "",
@@ -68,7 +70,6 @@ export default function RegisterCard(props: RegisterCardProps) {
   }
 
   return (
-    // <h1 className="text-white">TESTE</h1>
     <div className="bg-slate-800 rounded py-4 mt-4 flex p-2 flex-col">
       {
         props.openEdition === false
@@ -145,11 +146,18 @@ export default function RegisterCard(props: RegisterCardProps) {
               </div>
 
               <div className="w-full flex mt-10">
-                <button className="px-4 py-1 rounded-full bg-purple-600" onClick={(e) => { e.preventDefault(); updateRegister(formDataObj) }}>Salvar</button>
+                <button className="px-4 py-1 rounded-full bg-purple-600" onClick={(e) => { e.preventDefault(); updateRegister(formDataObj); setOpenConfirmationModal(); }}>Salvar</button>
                 <button className="px-4 py-1 rounded-full bg-red-600" >Excluir</button>
               </div>
             </form>
           )
+      }
+      {
+        openConfirmationModal === true
+          ?
+          <ConfirmationModal openEdition={props.openEdition} setOpenEdition={props.setOpenEdition} openConfirmationModal={openConfirmationModal} setOpenConfirmationModal={setOpenConfirmationModal} />
+          :
+          ""
       }
     </div>
   )
