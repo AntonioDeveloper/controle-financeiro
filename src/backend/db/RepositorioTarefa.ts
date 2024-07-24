@@ -18,6 +18,12 @@ export default class RepositorioTarefa {
     });
   }
 
+  async delete(id: string) {
+    return await this.db.register.delete({
+      where: { id }
+    });
+  }
+
   async getAllRegisters() {
     return await this.db.register.findMany();
   }

@@ -4,8 +4,8 @@ import updateRegister from "@/backend/casos-uso/update-register";
 import { IconCircleFilled, IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
 import { useState } from "react";
 import useToggle from "../hooks/useToggle";
-import CloseEditionBtn from "./CloseEditionBtn";
 import ConfirmationModal from "./ConfirmationModal";
+import deleteRegister from "@/backend/casos-uso/delete-register";
 
 interface RegisterCardProps {
   id: any,
@@ -26,8 +26,6 @@ export default function RegisterCard(props: RegisterCardProps) {
   const [newValue, setNewValue] = useState(0);
 
   const [openConfirmationModal, setOpenConfirmationModal] = useToggle(false);
-
-  console.log("openEdition", props.openEdition, "openConfirmationModal", openConfirmationModal);
 
   function handleDescriptionChange(e: any) {
     setNewDescription(e.target?.value);
@@ -160,7 +158,7 @@ export default function RegisterCard(props: RegisterCardProps) {
 
                 <div className="w-full flex mt-10">
                   <button className="px-4 py-1 rounded-full bg-purple-600" onClick={(e) => { e.preventDefault(); updateRegister(formDataObj); setOpenConfirmationModal(); }}>Salvar</button>
-                  <button className="px-4 py-1 rounded-full bg-red-600" >Excluir</button>
+                  <button className="px-4 py-1 rounded-full bg-red-600" onClick={(e) => { e.preventDefault(); deleteRegister(document.querySelector("body > main > section > div > div.bg-slate-800.rounded.py-4.mt-4.flex.p-2.flex-col.relative > form > div.w-full.flex.justify-between > div.flex.flex-col.w-1\\/6.justify-between > h1")!.innerHTML) }}>Excluir</button>
                 </div>
               </form>
             )
