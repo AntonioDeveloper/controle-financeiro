@@ -41,7 +41,13 @@ export default function Register() {
               }
               {reg.value}
             </span>
-            <span id="status" className="text-green-500 flex w-2/5 items-center justify-evenly"><IconCircleFilled size={16} />  {reg.status}</span>
+            {
+              reg.status.charAt(0).toUpperCase() + reg.status.slice(1) === "Consolidado"
+                ?
+                <span id="status" className="text-green-500 flex w-2/5 items-center justify-evenly"><IconCircleFilled size={16} />  {reg.status}</span>
+                :
+                <span id="status" className="text-red-500 flex w-2/5 items-center justify-evenly"><IconCircleFilled size={16} />  {reg.status}</span>
+            }
             <span className="text-white"><IconChevronRight stroke={1} /></span>
           </div>
         </Link>

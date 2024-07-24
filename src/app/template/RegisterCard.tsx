@@ -21,6 +21,7 @@ interface RegisterCardProps {
 export default function RegisterCard(props: RegisterCardProps) {
 
   const [newDescription, setNewDescription] = useState("");
+  const [newStatus, setNewStatus] = useState("");
   const [newType, setNewType] = useState("");
   const [newValue, setNewValue] = useState(0);
 
@@ -30,6 +31,10 @@ export default function RegisterCard(props: RegisterCardProps) {
 
   function handleDescriptionChange(e: any) {
     setNewDescription(e.target?.value);
+  }
+
+  function handleStatusChange(e: any) {
+    setNewStatus(e.target?.value);
   }
 
   function handleTypeChange(e: any) {
@@ -54,18 +59,18 @@ export default function RegisterCard(props: RegisterCardProps) {
       id: props.id,
       date: Date.now().toString(),
       description: (document.forms[1][0] as HTMLInputElement).value,
-      type: (document.forms[1][1] as HTMLInputElement).value,
-      value: (document.forms[1][2] as HTMLInputElement).value,
-      status: "Consolidado",
+      status: (document.forms[1][1] as HTMLInputElement).value,
+      type: (document.forms[1][2] as HTMLInputElement).value,
+      value: (document.forms[1][3] as HTMLInputElement).value,
     }
   } else {
     formDataObj = {
       id: "",
       date: "",
       description: "",
+      status: "",
       type: "",
       value: "",
-      status: "",
     };
   }
 
@@ -82,8 +87,17 @@ export default function RegisterCard(props: RegisterCardProps) {
               </div>
               <div className="flex flex-col w-1/6">
                 <span className="text-slate-400 text-sm">Status do Registro</span>
-                <span className="flex justify-around text-green-500 items-center p-2 mt-2 bg-green-500/30 rounded"><IconCircleFilled stroke={2} size={16} />
-                  {props.status}</span>
+                {
+                  props.status === "Consolidado"
+                    ?
+                    <span className="flex justify-around text-green-500 items-center p-2 mt-2 bg-green-500/30 rounded"><IconCircleFilled stroke={2} size={16} />
+                      {props.status}
+                    </span>
+                    :
+                    <span className="flex justify-around text-red-500 items-center p-2 mt-2 bg-red-500/30 rounded"><IconCircleFilled stroke={2} size={16} />
+                      {props.status}
+                    </span>
+                }
               </div>
             </div>
 
@@ -124,9 +138,7 @@ export default function RegisterCard(props: RegisterCardProps) {
                   <input type="text" placeholder={props.description} className="font-bold text-slate-400 text-2xl" onChange={handleDescriptionChange} />
                 </div>
                 <div className="flex flex-col w-1/6">
-                  <span className="text-slate-400 text-sm">Status do Registro</span>
-                  <span className="flex justify-around text-orange-500 items-center p-2 mt-2 bg-orange-500/30 rounded"><IconCircleFilled stroke={2} size={16} />
-                    Pendente</span>
+                  <input type="text" placeholder="Status do Registro" className="font-bold text-slate-400" onChange={handleStatusChange} />
                 </div>
               </div>
 
