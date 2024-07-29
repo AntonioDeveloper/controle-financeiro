@@ -45,7 +45,9 @@ export default function ModalNewRegister(props: ModalNewRegisterProps) {
           <input type="text" id="description" placeholder="Descrição" className="rounded mb-4 pl-2 text-slate-800" />
           <input type="number" id="value" placeholder="Valor" className="rounded mb-4 pl-2 text-slate-800" />
           <input type="text" placeholder="Status" className="rounded mb-4 pl-2 text-slate-800" />
-          <button className="p-3 bg-slate-600 hover:bg-slate-400" onClick={(e) => clickSaveRegister(e)}>Salvar</button>
+          <button className="p-3 bg-slate-600 hover:bg-slate-400" onClick={(e) => {
+            clickSaveRegister(e); props.toggleActive();
+          }}>Salvar</button>
         </form>
       </div>
     </div >
