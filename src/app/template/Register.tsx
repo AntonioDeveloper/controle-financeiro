@@ -33,23 +33,24 @@ export default function Register() {
       {
         registers.map((reg: any) => (
           <Link key={reg.id} href={{ pathname: "/dashboard", query: { id: reg.id, date: reg.date, type: reg.type, description: reg.description, value: reg.value, status: reg.status } }} className="w-full flex justify-between bg-slate-800 rounded py-4 px-2 mb-4">
-            <div id="left-infos" className="flex w-2/5 justify-between">
+            <div id="left-infos" className="flex w-3/5 justify-between">
               <span id="id" className="text-white font-bold">{`#${reg.id.
                 substring(0, 6)}`}</span>
               <span id="data" className="text-slate-400">{reg.date}</span>
-              <span id="descricao" className="text-white font-bold">{reg.type}</span>
-            </div>
-            <div id="right-infos" className="flex w-2/5 justify-between">
+              <span id="descricao" className="text-white font-bold">{reg.type}
+              </span>
+              {
+                reg.type === "Receita"
+                  ?
+                  <span id="tipo" className="text-green-500"><IconTrendingUp stroke={2} /></span>
+                  :
+                  <span id="tipo" className="text-red-500"><IconTrendingDown stroke={2} /></span>
+              }
               <span id="valor" className="text-white font-bold flex justify-between w-2/5">
-                {
-                  reg.type === "Receita"
-                    ?
-                    <span id="tipo" className="text-green-500"><IconTrendingUp stroke={2} /></span>
-                    :
-                    <span id="tipo" className="text-red-500"><IconTrendingDown stroke={2} /></span>
-                }
                 {BRLformat.format(reg.value)}
               </span>
+            </div>
+            <div id="right-infos" className="flex w-2/5 justify-end">
               {
                 reg.status.charAt(0).toUpperCase() + reg.status.slice(1) === "Consolidado"
                   ?
