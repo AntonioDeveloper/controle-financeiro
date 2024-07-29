@@ -1,8 +1,10 @@
+import ContextProvider from "../context/context";
 import useToggle from "../hooks/useToggle";
 import Content from "./Content";
 import Header from "./Header";
 import MainMenu from "./MainMenu";
 import ModalNewRegister from "./ModalNewRegister";
+import { createContext, useState } from "react";
 
 interface PaginaProps {
   titulo: string;
@@ -21,18 +23,20 @@ export default function Pagina(props: PaginaProps) {
     <main
       className="w-screen h-screen flex"
     >
-      <MainMenu />
-      <Content titulo={props.titulo} notifications={props.notifications}>
-        <Header titulo={props.titulo} notifications={props.notifications} activate={activate} toggleActive={toggleActive} />
-        {props.children}
-        {
-          activate === true
-            ?
-            <ModalNewRegister activate={activate} toggleActive={toggleActive} />
-            :
-            ""
-        }
-      </Content>
+      <ContextProvider>
+        <MainMenu />
+        <Content titulo={props.titulo} notifications={props.notifications}>
+          <Header titulo={props.titulo} notifications={props.notifications} activate={activate} toggleActive={toggleActive} />
+          {props.children}
+          {
+            activate === true
+              ?
+              <ModalNewRegister activate={activate} toggleActive={toggleActive} />
+              :
+              ""
+          }
+        </Content>
+      </ContextProvider>
     </main>
   )
 }

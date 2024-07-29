@@ -3,12 +3,16 @@
 import fillRegistersTab from "@/backend/casos-uso/get-all-registers";
 import { IconChevronRight, IconCircleFilled, IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Register } from "@/core/model/register";
+import { GeneralContext } from "../context/context";
+import getRegistersByStatus from "@/backend/casos-uso/filter-registers-by-status";
 
 export default function Register() {
+  const { status } = useContext(GeneralContext);
 
   const [registers, setRegisters] = useState<Register[]>([]);
+  const [filteredRegisters, setFilteredRegisters] = useState<any>([]);
 
   useEffect(() => {
     loadRegisters();
@@ -19,11 +23,18 @@ export default function Register() {
     setRegisters(regs);
   }
 
-  console.log("register", registers);
+  async function filterRegisters(status: string) {
+    const filteredRegs = await getRegistersByStatus(status);
+    setFilteredRegisters(filteredRegs);
+  }
+
+  useEffect(() => {
+    filterRegisters(status);
+  }, [status]);
 
   return (
     <div id="table" className="flex flex-col w-[65%]">
-      {registers.map((reg: any) => (
+      {filteredRegisters.map((reg: any) => (
         <Link key={reg.id} href={{ pathname: "/dashboard", query: { id: reg.id, date: reg.date, type: reg.type, description: reg.description, value: reg.value, status: reg.status } }} className="w-full flex justify-between bg-slate-800 rounded py-4 px-2 mb-4">
           <div id="left-infos" className="flex w-2/5 justify-between">
             <span id="id" className="text-white font-bold">{reg.id}</span>
