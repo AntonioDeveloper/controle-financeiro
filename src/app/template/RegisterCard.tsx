@@ -6,6 +6,7 @@ import { useState } from "react";
 import useToggle from "../hooks/useToggle";
 import ConfirmationModal from "./ConfirmationModal";
 import deleteRegister from "@/backend/casos-uso/delete-register";
+import { BRLformat } from "../utils/currencyFormatting";
 
 interface RegisterCardProps {
   id: any,
@@ -132,7 +133,7 @@ export default function RegisterCard(props: RegisterCardProps) {
                 </div>
                 <div className="flex flex-col w-1/3">
                   <span className="text-slate-400 text-sm">Valor Registro</span>
-                  <span className="font-bold text-white">{props.value}</span>
+                  <span className="font-bold text-white">{BRLformat.format(props.value)}</span>
                 </div>
               </div>
             </>)

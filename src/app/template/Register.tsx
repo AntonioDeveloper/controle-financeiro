@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import { GeneralContext } from "../context/context";
 import getRegistersByStatus from "@/backend/casos-uso/filter-registers-by-status";
+import { BRLformat } from "../utils/currencyFormatting";
 
 export default function Register() {
   const { status, registers, setRegisters, loadRegisters } = useContext(GeneralContext);
@@ -47,7 +48,7 @@ export default function Register() {
                     :
                     <span id="tipo" className="text-red-500"><IconTrendingDown stroke={2} /></span>
                 }
-                {reg.value}
+                {BRLformat.format(reg.value)}
               </span>
               {
                 reg.status.charAt(0).toUpperCase() + reg.status.slice(1) === "Consolidado"
