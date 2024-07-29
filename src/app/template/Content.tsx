@@ -1,5 +1,3 @@
-import Header from "./Header";
-
 interface Content {
   titulo?: string | undefined;
   notifications?: string;

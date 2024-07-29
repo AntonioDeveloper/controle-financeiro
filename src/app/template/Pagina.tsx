@@ -12,7 +12,6 @@ interface PaginaProps {
   children?: any;
   className?: any;
   menu?: any;
-  notifications?: string;
 }
 
 export default function Pagina(props: PaginaProps) {
@@ -25,8 +24,8 @@ export default function Pagina(props: PaginaProps) {
     >
       <ContextProvider>
         <MainMenu />
-        <Content titulo={props.titulo} notifications={props.notifications}>
-          <Header titulo={props.titulo} notifications={props.notifications} activate={activate} toggleActive={toggleActive} />
+        <Content titulo={props.titulo} >
+          <Header titulo={props.titulo} activate={activate} toggleActive={toggleActive} />
           {props.children}
           {
             activate === true

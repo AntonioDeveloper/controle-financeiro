@@ -4,24 +4,16 @@ import fillRegistersTab from "@/backend/casos-uso/get-all-registers";
 import { IconChevronRight, IconCircleFilled, IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
-import { Register } from "@/core/model/register";
 import { GeneralContext } from "../context/context";
 import getRegistersByStatus from "@/backend/casos-uso/filter-registers-by-status";
 
 export default function Register() {
-  const { status } = useContext(GeneralContext);
-
-  const [registers, setRegisters] = useState<Register[]>([]);
-  //const [filteredRegisters, setFilteredRegisters] = useState<any>([]);
+  const { status, registers, setRegisters, loadRegisters } = useContext(GeneralContext);
 
   useEffect(() => {
     loadRegisters();
   }, []);
 
-  async function loadRegisters() {
-    const regs = await fillRegistersTab();
-    setRegisters(regs);
-  }
 
   async function filterRegisters(status: string) {
     const filteredRegs = await getRegistersByStatus(status);
