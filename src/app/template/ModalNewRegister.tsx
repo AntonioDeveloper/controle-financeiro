@@ -26,7 +26,7 @@ export default function ModalNewRegister(props: ModalNewRegisterProps) {
     const newRegister = await saveRegister({
       type: type.value,
       description: description.value,
-      date: "16/07/2024",
+      date: new Date(Date.now()).toLocaleDateString(),
       value: regValue.value,
       status: status.value
     });

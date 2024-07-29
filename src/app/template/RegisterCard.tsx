@@ -55,7 +55,7 @@ export default function RegisterCard(props: RegisterCardProps) {
   if (typeof document !== 'undefined' && document.forms[1]) {
     formDataObj = {
       id: props.id,
-      date: Date.now().toString(),
+      date: new Date(Date.now()).toLocaleDateString(),
       description: (document.forms[1][0] as HTMLInputElement).value,
       status: (document.forms[1][1] as HTMLInputElement).value,
       type: (document.forms[1][2] as HTMLInputElement).value,
@@ -81,7 +81,7 @@ export default function RegisterCard(props: RegisterCardProps) {
             (<>
               <div className="w-full flex justify-between">
                 <div className="flex flex-col w-1/6 justify-between">
-                  <h1 className="font-bold">{props.id}</h1>
+                  <h1 className="font-bold">{`#${props.id.substring(0, 6)}`}</h1>
                   <span className="font-bold text-slate-400 text-2xl">{props.description}</span>
                 </div>
                 <div className="flex flex-col w-1/6">
@@ -93,9 +93,17 @@ export default function RegisterCard(props: RegisterCardProps) {
                         {props.status}
                       </span>
                       :
-                      <span className="flex justify-around text-red-500 items-center p-2 mt-2 bg-red-500/30 rounded"><IconCircleFilled stroke={2} size={16} />
-                        {props.status}
-                      </span>
+                      (
+                        props.status === "Pendente"
+                          ?
+                          <span className="flex justify-around text-yellow-500 items-center p-2 mt-2 bg-yellow-500/30 rounded"><IconCircleFilled stroke={2} size={16} />
+                            {props.status}
+                          </span>
+                          :
+                          <span className="flex justify-around text-red-500 items-center p-2 mt-2 bg-red-500/30 rounded"><IconCircleFilled stroke={2} size={16} />
+                            {props.status}
+                          </span>
+                      )
                   }
                 </div>
               </div>
