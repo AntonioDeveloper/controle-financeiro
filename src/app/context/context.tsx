@@ -4,6 +4,7 @@ import getRegistersByMonth from "@/backend/casos-uso/filter-registers-by-month";
 import fillRegistersTab from "@/backend/casos-uso/get-all-registers";
 import { Register } from "@/core/model/register";
 import { createContext, useEffect, useState } from "react";
+import { BRLformat } from "../utils/currencyFormatting";
 
 export interface ContextProps {
   status: string;
@@ -12,6 +13,7 @@ export interface ContextProps {
   setRegisters: () => void;
   selectedMonth: string;
   setSelectedMonth: () => void;
+  filterRegistersByType: () => { regsEarnings: number, regsExpenses: number };
 }
 
 export const GeneralContext = createContext({} as any);
@@ -29,7 +31,6 @@ export default function ContextProvider({ children }: { children: React.ReactNod
 
   async function loadRegistersByMonth() {
     const regs = await getRegistersByMonth(selectedMonth);
-    console.log("REGS", regs);
     return regs;
   }
 
@@ -37,8 +38,35 @@ export default function ContextProvider({ children }: { children: React.ReactNod
     loadRegistersByMonth();
   }, [selectedMonth]);
 
+  let regsEarnings: number = 0;
+  let regsExpenses: number = 0;
+
+  function filterRegistersByType() {
+    regsEarnings = registers.filter((register: Register) => {
+      return register.type === "Receita";
+    }).map((reg: Register) => {
+      return Number(reg.value);
+    }).reduce((curr, acc) => {
+      return curr + acc;
+    }, 0);
+
+
+    regsExpenses = registers.filter((register: Register) => {
+      return register.type === "Despesa";
+    }).map((reg: Register) => {
+      return Number(reg.value);
+    }).reduce((curr, acc) => {
+      return curr + acc;
+    }, 0);
+
+    return {
+      regsEarnings: BRLformat.format(regsEarnings),
+      regsExpenses: BRLformat.format(regsExpenses),
+    }
+  }
+
   return (
-    <GeneralContext.Provider value={{ status, setStatus, registers, setRegisters, loadRegisters, selectedMonth, setSelectedMonth }}>
+    <GeneralContext.Provider value={{ status, setStatus, registers, setRegisters, loadRegisters, selectedMonth, setSelectedMonth, filterRegistersByType }}>
       {children}
     </GeneralContext.Provider>
   )

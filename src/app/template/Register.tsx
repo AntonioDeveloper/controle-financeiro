@@ -8,6 +8,7 @@ import getRegistersByStatus from "@/backend/casos-uso/filter-registers-by-status
 import { BRLformat } from "../utils/currencyFormatting";
 import MonthSelector from "./MonthSelector";
 import getRegistersByMonth from "@/backend/casos-uso/filter-registers-by-month";
+import TotalsDisplay from "./TotalsDisplay";
 
 export default function Register() {
   const { status, registers, setRegisters, loadRegisters, selectedMonth } = useContext(GeneralContext);
@@ -90,6 +91,8 @@ export default function Register() {
             </div>
           </Link>
         ))}
+
+      <TotalsDisplay />
     </div>
   )
 }
