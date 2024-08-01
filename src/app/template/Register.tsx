@@ -1,6 +1,5 @@
 "use client"
 
-import fillRegistersTab from "@/backend/casos-uso/get-all-registers";
 import { IconChevronRight, IconCircleFilled, IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
