@@ -1,8 +1,9 @@
 "use client"
 
 import { IconSquareLetterX } from "@tabler/icons-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import saveRegister from "@/backend/casos-uso/save-register";
+import { GeneralContext } from "../context/context";
 
 interface ModalNewRegisterProps {
   activate: boolean,
@@ -12,6 +13,8 @@ interface ModalNewRegisterProps {
 export default function ModalNewRegister(props: ModalNewRegisterProps) {
 
   const [register, setRegister] = useState<any>(null);
+
+  const { loadRegisters } = useContext(GeneralContext);
 
   async function clickSaveRegister(e: React.MouseEvent<HTMLElement>) {
     e.preventDefault();
@@ -46,7 +49,7 @@ export default function ModalNewRegister(props: ModalNewRegisterProps) {
           <input type="number" id="value" placeholder="Valor" className="rounded mb-4 pl-2 text-slate-800" />
           <input type="text" placeholder="Status" className="rounded mb-4 pl-2 text-slate-800" />
           <button className="p-3 bg-slate-600 hover:bg-slate-400" onClick={(e) => {
-            clickSaveRegister(e); props.toggleActive();
+            clickSaveRegister(e); props.toggleActive(); loadRegisters();
           }}>Salvar</button>
         </form>
       </div>

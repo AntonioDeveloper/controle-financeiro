@@ -7,18 +7,34 @@ import { useContext, useEffect, useState } from "react";
 import { GeneralContext } from "../context/context";
 import getRegistersByStatus from "@/backend/casos-uso/filter-registers-by-status";
 import { BRLformat } from "../utils/currencyFormatting";
+import MonthSelector from "./MonthSelector";
+import getRegistersByMonth from "@/backend/casos-uso/filter-registers-by-month";
 
 export default function Register() {
-  const { status, registers, setRegisters, loadRegisters } = useContext(GeneralContext);
+  const { status, registers, setRegisters, loadRegisters, selectedMonth } = useContext(GeneralContext);
 
   useEffect(() => {
     loadRegisters();
   }, []);
 
+  useEffect(() => {
+    if (status === "Mensal") {
+      filterRegistersByMonth(selectedMonth)
+    }
+  }, [selectedMonth]);
+
+
   async function filterRegisters(status: string) {
     const filteredRegs = await getRegistersByStatus(status);
     setRegisters(filteredRegs);
   }
+
+  async function filterRegistersByMonth(month: string) {
+    const filteredRegs = await getRegistersByMonth(month);
+    setRegisters(filteredRegs);
+  }
+
+
 
   useEffect(() => {
     if (status === "Todos") {
@@ -30,6 +46,13 @@ export default function Register() {
 
   return (
     <div id="table" className="flex flex-col w-[65%]">
+      {
+        status === "Mensal"
+          ?
+          <MonthSelector />
+          :
+          ""
+      }
       {
         registers.map((reg: any) => (
           <Link key={reg.id} href={{ pathname: "/dashboard", query: { id: reg.id, date: reg.date, type: reg.type, description: reg.description, value: reg.value, status: reg.status } }} className="w-full flex justify-between bg-slate-800 rounded py-4 px-2 mb-4">

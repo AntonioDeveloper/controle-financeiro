@@ -33,11 +33,20 @@ export default class RepositorioTarefa {
   }
 
   async filterRegisterByStatus(status: string) {
-    console.log("status bck", status)
     return await this.db.register.findMany({
       where: {
         status: {
           equals: status,
+        }
+      },
+    })
+  }
+
+  async filterRegisterByMonth(month: string) {
+    return await this.db.register.findMany({
+      where: {
+        date: {
+          contains: month,
         }
       },
     })

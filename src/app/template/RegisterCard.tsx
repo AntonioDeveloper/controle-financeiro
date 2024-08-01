@@ -7,6 +7,7 @@ import useToggle from "../hooks/useToggle";
 import ConfirmationModal from "./ConfirmationModal";
 import deleteRegister from "@/backend/casos-uso/delete-register";
 import { BRLformat } from "../utils/currencyFormatting";
+import DeletionConfirmationModal from "./DeletionConfirmationModal";
 
 interface RegisterCardProps {
   id: any,
@@ -27,6 +28,7 @@ export default function RegisterCard(props: RegisterCardProps) {
   const [newValue, setNewValue] = useState(0);
 
   const [openConfirmationModal, setOpenConfirmationModal] = useToggle(false);
+  const [openDeletionConfirmationModal, setOpenDeletionConfirmationModal] = useToggle(false);
 
   function handleDescriptionChange(e: any) {
     setNewDescription(e.target?.value);
@@ -167,7 +169,7 @@ export default function RegisterCard(props: RegisterCardProps) {
 
                 <div className="w-full flex mt-10">
                   <button className="px-4 py-1 rounded-full bg-purple-600" onClick={(e) => { e.preventDefault(); updateRegister(formDataObj); setOpenConfirmationModal(); }}>Salvar</button>
-                  <button className="px-4 py-1 rounded-full bg-red-600" onClick={(e) => { e.preventDefault(); deleteRegister(document.querySelector("body > main > section > div > div.bg-slate-800.rounded.py-4.mt-4.flex.p-2.flex-col.relative > form > div.w-full.flex.justify-between > div.flex.flex-col.w-1\\/6.justify-between > h1")!.innerHTML) }}>Excluir</button>
+                  <button className="px-4 py-1 rounded-full bg-red-600" onClick={(e) => { e.preventDefault(); deleteRegister(document.querySelector("body > main > section > div > div.bg-slate-800.rounded.py-4.mt-4.flex.p-2.flex-col.relative > form > div.w-full.flex.justify-between > div.flex.flex-col.w-1\\/6.justify-between > h1")!.innerHTML); setOpenDeletionConfirmationModal() }}>Excluir</button>
                 </div>
               </form>
             )
@@ -177,6 +179,13 @@ export default function RegisterCard(props: RegisterCardProps) {
         openConfirmationModal === true
           ?
           <ConfirmationModal openEdition={props.openEdition} setOpenEdition={props.setOpenEdition} openConfirmationModal={openConfirmationModal} setOpenConfirmationModal={setOpenConfirmationModal} />
+          :
+          ""
+      }
+      {
+        openDeletionConfirmationModal === true
+          ?
+          <DeletionConfirmationModal />
           :
           ""
       }

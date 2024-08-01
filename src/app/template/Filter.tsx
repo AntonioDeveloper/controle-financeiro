@@ -12,6 +12,7 @@ export default function Filter() {
         <option value="Consolidado">Consolidado</option>
         <option value="Cancelado">Cancelado</option>
         <option value="Pendente">Pendente</option>
+        <option value="Mensal">Filtre por mês</option>
       </select>
     </form >
   )
