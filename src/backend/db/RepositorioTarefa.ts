@@ -1,4 +1,5 @@
 import { Register } from "@/core/model/register";
+import { User } from "@/core/model/user";
 import { PrismaClient } from "@prisma/client";
 
 export default class RepositorioTarefa {
@@ -51,4 +52,10 @@ export default class RepositorioTarefa {
       },
     })
   }
+
+  // ** USER FUNCTIONS ** 
+
+  async insertNewUser(user: any) {
+    return await this.db.user.create({ data: user })
+  };
 }
