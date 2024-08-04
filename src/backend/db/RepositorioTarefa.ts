@@ -58,4 +58,8 @@ export default class RepositorioTarefa {
   async insertNewUser(user: any) {
     return await this.db.user.create({ data: user })
   };
+
+  async getSingleUser(email: string, password: string) {
+    return await this.db.user.findUnique({ where: { email, password } })
+  }
 }
