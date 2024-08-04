@@ -16,12 +16,11 @@ export default function Login() {
     const foundUser = await findUserByEmail(emailnput.value, passwordInput.value);
 
     if (foundUser) {
+      localStorage.setItem("Logged User", JSON.stringify(foundUser));
       router.push("/pages/home");
     } else {
       alert("Usuário não encontrado")
     }
-
-    console.log("USER", foundUser)
   }
 
   return (

@@ -5,6 +5,7 @@ import fillRegistersTab from "@/backend/casos-uso/get-all-registers";
 import { Register } from "@/core/model/register";
 import { createContext, useEffect, useState } from "react";
 import { BRLformat } from "../utils/currencyFormatting";
+import { User } from "@/core/model/user";
 
 export interface ContextProps {
   status: string;
@@ -14,15 +15,17 @@ export interface ContextProps {
   selectedMonth: string;
   setSelectedMonth: () => void;
   filterRegistersByType: () => { regsEarnings: number, regsExpenses: number };
+  loggedUser: User;
+  setLoggedUser: () => void;
 }
 
 export const GeneralContext = createContext({} as any);
-
 
 export default function ContextProvider({ children }: { children: React.ReactNode }) {
   const [status, setStatus] = useState<any>();
   const [registers, setRegisters] = useState<Register[]>([]);
   const [selectedMonth, setSelectedMonth] = useState("");
+  const [loggedUser, setLoggedUser] = useState({});
 
   async function loadRegisters() {
     const regs = await fillRegistersTab();
@@ -66,7 +69,7 @@ export default function ContextProvider({ children }: { children: React.ReactNod
   }
 
   return (
-    <GeneralContext.Provider value={{ status, setStatus, registers, setRegisters, loadRegisters, selectedMonth, setSelectedMonth, filterRegistersByType }}>
+    <GeneralContext.Provider value={{ status, setStatus, registers, setRegisters, loadRegisters, selectedMonth, setSelectedMonth, filterRegistersByType, loggedUser, setLoggedUser }}>
       {children}
     </GeneralContext.Provider>
   )
