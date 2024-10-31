@@ -12,13 +12,13 @@ Controle de finanças pessoais com as features:
 - Prisma ORM
 - SQL
 
-![Dashboard inicial](/img/controle-financeiro-dashboard.jpg)
+![Dashboard inicial](/public/img/controle-financeiro-dashboard.jpg)
 
-![Novo Registro](/img/controle-financeiro-novo-registro.jpg)
+![Novo Registro](/public/img/controle-financeiro-novo-registro.jpg)
 
-![Visualização registro](/img/controle-financeiro-visualizacao-registro.jpg)
+![Visualização registro](/public/img/controle-financeiro-visualizacao-registro.jpg)
 
-![Edição de registro](/img/controle-financeiro-modo-edicao.jpg)
+![Edição de registro](/public/img/controle-financeiro-modo-edicao.jpg)
 
 ## Como rodar o projeto
 - Versão do Node JS necessária: a partir da 16
