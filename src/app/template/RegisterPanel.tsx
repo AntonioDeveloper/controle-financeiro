@@ -21,7 +21,7 @@ export default function RegisterPanel(props: RegisterPanelProps) {
 
   return (
     <div className="text-white w-[65%] flex flex-col mx-auto">
-      <Link href="/" className="text-white w-24 flex"><IconChevronLeft stroke={2} /> Voltar</Link>
+      <Link href="/pages/home" className="text-white w-24 flex"><IconChevronLeft stroke={2} /> Voltar</Link>
 
       <div className="bg-slate-800 rounded py-4 mt-4">
         <p className="flex px-2 items-center relative">Modo

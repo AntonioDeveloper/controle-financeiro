@@ -12,7 +12,7 @@ export default function UserAvatarButton() {
     userName = JSON.parse(loggedUser).name;
     console.log(JSON.parse(loggedUser));
   }
-
+console.log("user", userAvatar)
   return (
     <Link href="/" className="w-full h-[100px] flex justify-center items-center text-white">{loggedUser ? <img src={userAvatar} alt={userName} /> : <IconUserCircle stroke={2} />}</Link>
   )
